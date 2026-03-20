@@ -30,7 +30,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function class() {
-        return $this->belongsTo(classes::class);
+    public function classRoom() {
+        return $this->belongsTo(ClassRoom::class);
     }
 }

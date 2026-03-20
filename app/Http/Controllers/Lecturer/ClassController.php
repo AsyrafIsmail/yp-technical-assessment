@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Lecturer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ClassRoom;
+use SebastianBergmann\CodeCoverage\Test\Target\Class_;
 
 class ClassController extends Controller
 {
@@ -12,7 +14,8 @@ class ClassController extends Controller
      */
     public function index()
     {
-        //
+        $classes = ClassRoom::all();
+        return view('lecturer.classes.index', compact('classes'));
     }
 
     /**
