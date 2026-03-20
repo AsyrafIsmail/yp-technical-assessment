@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('question_id')->constrained()->cascadeOnDelete();
+            $table->string('option_text');
+            $table->boolean('is_correct')->default(false);
         });
     }
 

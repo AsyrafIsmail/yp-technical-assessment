@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->foreignId('subject_id')->constrained();
+            $table->foreignId('class_id')->constrained();
+            $table->integer('duration');
             $table->timestamps();
         });
     }
