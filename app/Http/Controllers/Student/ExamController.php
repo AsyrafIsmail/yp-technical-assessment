@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Exam;
+use App\Models\Answer;
 
 class ExamController extends Controller
 {
@@ -20,6 +21,27 @@ class ExamController extends Controller
         $exam = Exam::with('questions.options')->findOrFail($id);
 
         return view('student.exams.show', compact('exam'));
+    }
+
+    public function submit(Request $request, $examId) {
+        foreach ($request->answers as $questionId => $answer) {
+
+            if (is_numeric($answer)) {
+                Answer::create([
+                    'user_id' => Auth::user(),
+                    'question_id' => $questionId,
+                    'option_id' => $answer
+                ]);
+            } else {
+                Answer::create([
+                    'user_id' => Auth::user(),
+                    'question_id' => $questionId,
+                    'answer_text' => $answer
+                ]);
+            }
+        }
+
+        return redirect()->route('student.exams')->with('success', 'Exam submitted');
     }
 
 }
