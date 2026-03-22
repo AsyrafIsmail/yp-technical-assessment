@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subject extends Model
 {
-    public function classes() {
-        return $this->belongsToMany(Classes::class);
+    protected $fillable = ['name'];
+    public function classrooms() {
+        return $this->belongsToMany(
+            Classroom::class,
+            'class_subject',
+            'subject_id',
+            'classroom_id'
+        );
     }
 
     public function exams() {

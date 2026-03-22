@@ -11,6 +11,19 @@
                 <input type="text" name="name"
                        class="w-full border p-2 rounded">
             </div>
+            <div>
+                <label class="block mb-2">Assign Subjects</label>
+
+                @foreach($subjects as $subject)
+                    <div>
+                        <input type="checkbox"
+                            name="subjects[]"
+                            value="{{ $subject->id }}">
+
+                        {{ $subject->name }}
+                    </div>
+                @endforeach
+            </div>
 
             <button type="submit"
                     class="bg-green-500 text-white px-4 py-2 rounded">

@@ -24,18 +24,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($classes as $class)
+                    @foreach($classrooms as $classroom)
                         <tr>
-                            <td class="p-2 border">{{ $class->id }}</td>
-                            <td class="p-2 border">{{ $class->name }}</td>
+                            <td class="p-2 border">{{ $classroom->id }}</td>
+                            <td class="p-2 border">{{ $classroom->name }}</td>
                             <td class="p-2 border space-x-2">
 
-                                <a href="{{ route('classes.edit', $class->id) }}"
+                                <a href="{{ route('classes.edit', $classroom->id) }}"
                                    class="text-blue-500">
                                     Edit
                                 </a>
 
-                                <form action="{{ route('classes.destroy', $class->id) }}"
+                                <form action="{{ route('classes.destroy', $classroom->id) }}"
                                       method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')

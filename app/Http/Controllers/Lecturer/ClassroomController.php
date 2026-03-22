@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ClassRoom;
 use SebastianBergmann\CodeCoverage\Test\Target\Class_;
+use App\Models\Subject;
 
-class ClassController extends Controller
+class ClassroomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $classes = ClassRoom::all();
-        return view('lecturer.classes.index', compact('classes'));
+        $classrooms = Classroom::all();
+        return view('lecturer.classes.index', compact('classrooms'));
     }
 
     /**
@@ -23,7 +24,8 @@ class ClassController extends Controller
      */
     public function create()
     {
-        return view('lecturer.classes.create');
+        $subjects = Subject::all();
+        return view('lecturer.classes.create', compact('subjects'));
     }
 
     /**
@@ -35,9 +37,13 @@ class ClassController extends Controller
             'name' => 'required|string|max:255'
         ]);
 
-        ClassRoom::create([
+        $classrooms = Classroom::create([
             'name' => $request->name
         ]);
+        // attach subjects
+        if ($request->subjects) {
+            $classrooms->subjects()->attach($request->subjects);
+        }
 
         return redirect()->route('classes.index')->with('success', 'Class created successfully');
     }
@@ -55,9 +61,10 @@ class ClassController extends Controller
      */
     public function edit(string $id)
     {
-        $class = ClassRoom::findOrFail($id);
+        $classroom = Classroom::findOrFail($id);
+        $subjects = Subject::all();
 
-        return view('lecturer.classes.edit', compact('class'));
+        return view('lecturer.classes.edit', compact('classroom', 'subjects'));
     }
 
     /**
@@ -69,11 +76,12 @@ class ClassController extends Controller
             'name' => 'required|string|max:255'
         ]);
 
-        $class = ClassRoom::findOrFail($id);
-        $class->update([
+        $classroom = Classroom::findOrFail($id);
+        $classroom->update([
             'name' => $request->name
         ]);
-
+        // sync subjects
+        $classroom->subjects()->sync($request->subjects ?? []);
         return redirect()->route('classes.index')->with('success', 'Class updated');
     }
 
@@ -82,8 +90,8 @@ class ClassController extends Controller
      */
     public function destroy(string $id)
     {
-        $class = ClassRoom::findOrFail($id);
-        $class->delete();
+        $classroom = Classroom::findOrFail($id);
+        $classroom->delete();
 
         return redirect()->route('classes.index')->with('success', 'Class deleted');
     }

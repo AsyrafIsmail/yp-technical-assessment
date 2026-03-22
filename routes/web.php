@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Lecturer\ClassController;
+use App\Http\Controllers\Lecturer\ClassroomController;
+use App\Http\Controllers\Lecturer\SubjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,7 +45,8 @@ Route::middleware('auth')->group(function () {
     })->name('student.dashboard');
 
     Route::prefix('lecturer')->group(function () {
-        Route::resource('classes', ClassController::class);
+        Route::resource('classes', ClassroomController::class);
+        Route::resource('subjects', SubjectController::class);
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

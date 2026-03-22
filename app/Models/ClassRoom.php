@@ -4,13 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClassRoom extends Model
+class Classroom extends Model
 {
 
     protected $fillable = ['name'];
 
     public function subjects() {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(
+            Subject::class,
+            'class_subject',
+            'classroom_id',
+            'subject_id'
+        );
     }
 
     public function users() {

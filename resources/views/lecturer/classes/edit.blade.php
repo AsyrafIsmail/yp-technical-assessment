@@ -13,7 +13,7 @@
             </div>
         @endif
 
-        <form action="{{ route('classes.update', $class->id) }}" method="POST" class="space-y-4">
+        <form action="{{ route('classes.update', $classroom->id) }}" method="POST" class="space-y-4">
             @csrf
             @method('PUT')
 
@@ -22,9 +22,23 @@
                 <input
                     type="text"
                     name="name"
-                    value="{{ old('name', $class->name) }}"
+                    value="{{ old('name', $classroom->name) }}"
                     class="w-full border p-2 rounded"
                 >
+            </div>
+            <div>
+                <label class="block mb-2">Assign Subjects</label>
+
+                @foreach($subjects as $subject)
+                    <div>
+                        <input type="checkbox"
+                            name="subjects[]"
+                            value="{{ $subject->id }}"
+                            {{ $classroom->subjects->contains($subject->id) ? 'checked' : '' }}>
+
+                        {{ $subject->name }}
+                    </div>
+                @endforeach
             </div>
 
             <div class="flex justify-between items-center">
