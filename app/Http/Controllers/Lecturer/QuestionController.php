@@ -29,6 +29,6 @@ class QuestionController extends Controller
                 ]);
             }
         }
-        return back()->with('success', 'Question created');
+        return redirect()->route('exams.index')->with('success', 'Question created!');
     }
 }

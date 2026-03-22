@@ -14,6 +14,7 @@
                 <th class="p-2 border">Class</th>
                 <th class="p-2 border">Subject</th>
                 <th class="p-2 border">Duration</th>
+                <th class="p-2 border">Actions</th>
             </tr>
 
             @foreach($exams as $exam)
@@ -22,6 +23,11 @@
                     <td class="p-2 border">{{ $exam->classroom->name }}</td>
                     <td class="p-2 border">{{ $exam->subject->name }}</td>
                     <td class="p-2 border">{{ $exam->duration }} mins</td>
+                    <td class="p-2 border">
+                        <a href="{{ route('questions.create', $exam->id) }}" class="text-blue-500">
+                            Manage Questions
+                        </a>
+                    </td>
                 </tr>
             @endforeach
 
