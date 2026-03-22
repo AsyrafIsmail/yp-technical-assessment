@@ -23,7 +23,7 @@ class ClassController extends Controller
      */
     public function create()
     {
-        //
+        return view('lecturer.classes.create');
     }
 
     /**
@@ -31,7 +31,15 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        ClassRoom::create([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('classes.index')->with('success', 'Class created successfully');
     }
 
     /**
@@ -47,7 +55,9 @@ class ClassController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $class = ClassRoom::findOrFail($id);
+
+        return view('lecturer.classes.edit', compact('class'));
     }
 
     /**
@@ -55,7 +65,16 @@ class ClassController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $class = ClassRoom::findOrFail($id);
+        $class->update([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('classes.index')->with('success', 'Class updated');
     }
 
     /**
@@ -63,6 +82,9 @@ class ClassController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $class = ClassRoom::findOrFail($id);
+        $class->delete();
+
+        return redirect()->route('classes.index')->with('success', 'Class deleted');
     }
 }
