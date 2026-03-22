@@ -20,6 +20,7 @@
                     <tr>
                         <th class="p-2 border">ID</th>
                         <th class="p-2 border">Name</th>
+                        <th class="p-2 border">Subjects</th>
                         <th class="p-2 border">Actions</th>
                     </tr>
                 </thead>
@@ -28,6 +29,14 @@
                         <tr>
                             <td class="p-2 border">{{ $classroom->id }}</td>
                             <td class="p-2 border">{{ $classroom->name }}</td>
+                            <td class="p-2 border">
+                                @foreach($classroom->subjects as $subject)
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-sm">
+                                        {{ $subject->name }}
+                                    </span>
+                                @endforeach
+                            </td>
+
                             <td class="p-2 border space-x-2">
 
                                 <a href="{{ route('classes.edit', $classroom->id) }}"
