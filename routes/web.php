@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Lecturer\ClassroomController;
 use App\Http\Controllers\Lecturer\ExamController;
+use App\Http\Controllers\Lecturer\QuestionController;
 use App\Http\Controllers\Lecturer\SubjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('classes', ClassroomController::class);
         Route::resource('subjects', SubjectController::class);
         Route::resource('exams', ExamController::class);
+        Route::get('lecturer/exams/{exam}/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+        Route::post('lecturer/exams/{exam}/questions', [QuestionController::class, 'store'])->name('questions.store');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
