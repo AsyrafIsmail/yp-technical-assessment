@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Lecturer\ClassroomController;
+use App\Http\Controllers\Lecturer\ExamController;
 use App\Http\Controllers\Lecturer\SubjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('lecturer')->group(function () {
         Route::resource('classes', ClassroomController::class);
         Route::resource('subjects', SubjectController::class);
+        Route::resource('exams', ExamController::class);
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
