@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/student/exams', [ExamController::class, 'index'])->name('student.exams');
+    Route::get('/student/exams/{id}', [ExamController::class, 'show'])->name('student.exam.start');
+    Route::post('/student/exams/{id}', [ExamController::class, 'submit'])->name('student.exam.submit');
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

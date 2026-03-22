@@ -15,4 +15,11 @@ class ExamController extends Controller
 
         return view('student.exams.index', compact('exams'));
     }
+
+    public function show($id) {
+        $exam = Exam::with('questions.options')->findOrFail($id);
+
+        return view('student.exams.show', compact('exam'));
+    }
+
 }
