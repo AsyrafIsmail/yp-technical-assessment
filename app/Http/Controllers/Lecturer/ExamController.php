@@ -24,10 +24,9 @@ class ExamController extends Controller
      */
     public function create()
     {
-        $classrooms = Classroom::all();
-        $subjects = Subject::all();
+        $classrooms = Classroom::with('subjects')->get();
 
-        return view('lecturer.exams.create', compact('classrooms', 'subjects'));
+        return view('lecturer.exams.create', compact('classrooms'));
     }
 
     /**

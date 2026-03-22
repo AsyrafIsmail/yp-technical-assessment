@@ -13,9 +13,12 @@
 
             <div>
                 <label>Class</label>
-                <select name="classroom_id" class="w-full border p-2 rounded">
+                <select id="classroom" name="classroom_id" class="w-full border p-2 rounded">
+                    <option value="">Select Class</option>
+
                     @foreach($classrooms as $classroom)
-                        <option value="{{ $classroom->id }}">
+                        <option value="{{ $classroom->id }}"
+                            data-subjects='@json($classroom->subjects)'>
                             {{ $classroom->name }}
                         </option>
                     @endforeach
@@ -24,12 +27,8 @@
 
             <div>
                 <label>Subject</label>
-                <select name="subject_id" class="w-full border p-2 rounded">
-                    @foreach($subjects as $subject)
-                        <option value="{{ $subject->id }}">
-                            {{ $subject->name }}
-                        </option>
-                    @endforeach
+                <select id="subject" name="subject_id" class="w-full border p-2 rounded">
+                    <option value="">Select Subject</option>
                 </select>
             </div>
 
@@ -46,3 +45,23 @@
 
     </div>
 </x-app-layout>
+
+<script>
+    document.getElementById('classroom').addEventListener('change', function () {
+
+        let selected = this.options[this.selectedIndex];
+        let subjects = JSON.parse(selected.getAttribute('data-subjects') || '[]');
+
+        let subjectDropdown = document.getElementById('subject');
+
+        subjectDropdown.innerHTML = '<option value="">Select Subject</option>';
+
+        subjects.forEach(function(subject) {
+            let option = document.createElement('option');
+            option.value = subject.id;
+            option.text = subject.name;
+            subjectDropdown.appendChild(option);
+        });
+
+    });
+</script>
