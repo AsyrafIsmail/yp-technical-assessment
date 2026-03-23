@@ -19,25 +19,18 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', function () {
-
         $user = Auth::user();
-
         if ($user->role === 'lecturer') {
             return redirect()->route('lecturer.dashboard');
         }
-
         return redirect()->route('student.dashboard');
-
     })->name('dashboard');
 
     Route::get('/lecturer/dashboard', function () {
-
         if (Auth::user()->role !== 'lecturer') {
             abort(403);
         }
-
         return view('lecturer.dashboard');
-
     })->name('lecturer.dashboard');
 
     Route::get('/student/dashboard', function () {
