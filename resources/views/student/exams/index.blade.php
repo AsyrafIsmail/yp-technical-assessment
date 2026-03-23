@@ -1,19 +1,16 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto py-8 px-4">
 
-        <!-- Header -->
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Available Exams</h1>
         </div>
 
-        <!-- Exams Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @forelse($exams as $exam)
 
                 <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col justify-between">
 
-                    <!-- Top -->
                     <div>
                         <h2 class="text-xl font-semibold mb-2">
                             {{ $exam->title }}
@@ -28,7 +25,6 @@
                         </p>
                     </div>
 
-                    <!-- Bottom -->
                     <div class="mt-4">
 
                         @if($exam->answered)

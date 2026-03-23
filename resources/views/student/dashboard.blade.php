@@ -1,10 +1,8 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto py-8 px-4">
 
-        <!-- Header -->
         <h1 class="text-3xl font-bold mb-6">Student Dashboard</h1>
 
-        <!-- Student Info -->
         <div class="bg-white p-6 rounded-xl shadow mb-6">
             <p class="text-gray-500">Welcome,</p>
             <h2 class="text-xl font-bold">{{ auth()->user()->name }}</h2>
@@ -15,7 +13,6 @@
             </h3>
         </div>
 
-        <!-- Stats -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 
             <div class="bg-white p-6 rounded-xl shadow">
@@ -35,7 +32,6 @@
 
         </div>
 
-        <!-- Exams Section -->
         <div class="bg-white p-6 rounded-xl shadow">
 
             <div class="flex justify-between items-center mb-4">
