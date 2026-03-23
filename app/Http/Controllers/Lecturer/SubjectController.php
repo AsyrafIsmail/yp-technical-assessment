@@ -54,7 +54,8 @@ class SubjectController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $subject = Subject::findOrFail($id);
+        return view('lecturer.subjects.edit', compact('subject'));
     }
 
     /**
@@ -62,7 +63,16 @@ class SubjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+        $subject = Subject::findOrFail($id);
+
+        $subject->update([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('subjects.index')->with('success', 'Subject updated!');
     }
 
     /**
@@ -70,6 +80,8 @@ class SubjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $subject = Subject::findOrFail($id);
+        $subject->delete();
+        return redirect()->route('subjects.index')->with('success', 'Subject deleted!');
     }
 }
