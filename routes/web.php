@@ -18,14 +18,18 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
+    // Dashboard redirect
     Route::get('/dashboard', function () {
         $user = Auth::user();
+
         if ($user->role === 'lecturer') {
             return redirect()->route('lecturer.dashboard');
         }
+
         return redirect()->route('student.dashboard');
     })->name('dashboard');
 
+    // Lecturer dashboard
     Route::get('/lecturer/dashboard', function () {
         if (Auth::user()->role !== 'lecturer') {
             abort(403);
@@ -33,36 +37,38 @@ Route::middleware('auth')->group(function () {
         return view('lecturer.dashboard');
     })->name('lecturer.dashboard');
 
+    // Student dashboard
     Route::get('/student/dashboard', function () {
-
         if (Auth::user()->role !== 'student') {
             abort(403);
         }
-
         return view('student.dashboard');
-
     })->name('student.dashboard');
 
+    // Lecturer Routes
     Route::prefix('lecturer')->group(function () {
         Route::resource('classes', ClassroomController::class);
         Route::resource('subjects', SubjectController::class);
         Route::resource('exams', ExamController::class);
-        Route::get('lecturer/exams/{exam}/questions/create', [QuestionController::class, 'create'])->name('questions.create');
-        Route::post('lecturer/exams/{exam}/questions', [QuestionController::class, 'store'])->name('questions.store');
+
+        // Questions
+        Route::get('exams/{exam}/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+        Route::post('exams/{exam}/questions', [QuestionController::class, 'store'])->name('questions.store');
+
+        // Students management
+        Route::get('students', [StudentController::class, 'index'])->name('students.index');
+        Route::get('students/{id}', [StudentController::class, 'show'])->name('students.show');
+        Route::post('students/{id}', [StudentController::class, 'update'])->name('students.update');
     });
 
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/exams', [StudentExamController::class, 'index'])->name('student.exams');
-        Route::get('/exams/{id}', [StudentExamController::class, 'show'])->name('student.exam.start');
-        Route::post('/exams/{id}', [StudentExamController::class, 'submit'])->name('student.exam.submit');
+    // Student Routes
+    Route::prefix('student')->group(function () {
+        Route::get('exams', [StudentExamController::class, 'index'])->name('student.exams');
+        Route::get('exams/{id}', [StudentExamController::class, 'show'])->name('student.exam.start');
+        Route::post('exams/{id}', [StudentExamController::class, 'submit'])->name('student.exam.submit');
     });
 
-    Route::prefix('lecturer')->middleware('auth')->group(function () {
-        Route::get('/students', [StudentController::class, 'index'])->name('students.index');
-        Route::get('/students/{id}', [StudentController::class, 'show'])->name('students.show');
-        Route::post('/students/{id}', [StudentController::class, 'update'])->name('students.update');
-    });
-
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
