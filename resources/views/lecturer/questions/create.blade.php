@@ -49,7 +49,7 @@
                             name="questions[0][correct_index]"
                             maxlength="1"
                             class="border p-2 w-20 uppercase"
-                            required>
+                            >
 
                     </div>
 
@@ -77,10 +77,8 @@
 let questionIndex = 1;
 
 document.getElementById('add-question').addEventListener('click', function () {
-
-    let container = document.getElementById('questions-container');
-
-    let block = document.createElement('div');
+    const container = document.getElementById('questions-container');
+    const block = document.createElement('div');
     block.classList.add('question-block', 'border', 'p-4', 'mb-4', 'rounded');
 
     block.innerHTML = `
@@ -91,18 +89,33 @@ document.getElementById('add-question').addEventListener('click', function () {
 
         <select name="questions[${questionIndex}][type]"
                 class="w-full border p-2 mb-2 question-type">
-            <option value="text">Text</option>
+            <option value="text">Open-text</option>
             <option value="mcq">MCQ</option>
         </select>
 
         <div class="mcq-options hidden">
-            <input type="text" name="questions[${questionIndex}][options][]" placeholder="Option 1" class="block mb-1">
-            <input type="text" name="questions[${questionIndex}][options][]" placeholder="Option 2" class="block mb-1">
-            <input type="text" name="questions[${questionIndex}][options][]" placeholder="Option 3" class="block mb-1">
-            <input type="text" name="questions[${questionIndex}][options][]" placeholder="Option 4" class="block mb-1">
+            <div class="flex items-center mb-1">
+                <span class="mr-2 font-bold">A)</span>
+                <input type="text" name="questions[${questionIndex}][options][]" class="flex-1 border p-1">
+            </div>
+            <div class="flex items-center mb-1">
+                <span class="mr-2 font-bold">B)</span>
+                <input type="text" name="questions[${questionIndex}][options][]" class="flex-1 border p-1">
+            </div>
+            <div class="flex items-center mb-1">
+                <span class="mr-2 font-bold">C)</span>
+                <input type="text" name="questions[${questionIndex}][options][]" class="flex-1 border p-1">
+            </div>
+            <div class="flex items-center mb-1">
+                <span class="mr-2 font-bold">D)</span>
+                <input type="text" name="questions[${questionIndex}][options][]" class="flex-1 border p-1">
+            </div>
 
-            <label>Correct Index</label>
-            <input type="number" name="questions[${questionIndex}][correct_index]" min="0">
+            <label class="block mt-2">Correct Answer (A-D)</label>
+            <input type="text"
+                   name="questions[${questionIndex}][correct_index]"
+                   maxlength="1"
+                   class="border p-2 w-20 uppercase">
         </div>
     `;
 
@@ -110,22 +123,29 @@ document.getElementById('add-question').addEventListener('click', function () {
     questionIndex++;
 });
 
-document.addEventListener('change', function(e) {
-    if (e.target.classList.contains('question-type')) {
-        let parent = e.target.closest('.question-block');
-        let mcq = parent.querySelector('.mcq-options');
-
-        if (e.target.value === 'mcq') {
-            mcq.classList.remove('hidden');
-        } else {
-            mcq.classList.add('hidden');
-        }
+document.addEventListener('change', function (e) {
+    if (!e.target.classList.contains('question-type')) {
+        return;
     }
+
+    const parent = e.target.closest('.question-block');
+    if (!parent) {
+        return;
+    }
+
+    const mcq = parent.querySelector('.mcq-options');
+    if (!mcq) {
+        return;
+    }
+
+    mcq.classList.toggle('hidden', e.target.value !== 'mcq');
 });
 
-document.addEventListener('input', function(e) {
-    if (e.target.name.includes('correct_index')) {
-        e.target.value = e.target.value.toUpperCase().replace(/[^A-D]/g, '');
+document.addEventListener('input', function (e) {
+    if (typeof e.target.name !== 'string' || !e.target.name.includes('correct_index')) {
+        return;
     }
+
+    e.target.value = e.target.value.toUpperCase().replace(/[^A-D]/g, '');
 });
 </script>

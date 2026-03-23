@@ -1,67 +1,104 @@
 <x-app-layout>
-    <div class="max-w-xl mx-auto py-6">
+    <div class="max-w-xl mx-auto py-8 px-4">
 
-        <h1 class="text-2xl font-bold mb-4">Create Exam</h1>
+        <h1 class="text-2xl font-bold mb-6">Create Exam</h1>
 
-        <form action="{{ route('exams.store') }}" method="POST" class="space-y-4">
-            @csrf
+        <div class="bg-white p-6 rounded-xl shadow">
 
-            <div>
-                <label>Exam Title</label>
-                <input type="text" name="title" class="w-full border p-2 rounded">
-            </div>
+            <form action="{{ route('exams.store') }}" method="POST">
+                @csrf
 
-            <div>
-                <label>Class</label>
-                <select id="classroom" name="classroom_id" class="w-full border p-2 rounded">
-                    <option value="">Select Class</option>
+                <!-- Title -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Exam Title</label>
+                    <input type="text" name="title"
+                           class="w-full border p-2 rounded focus:ring focus:ring-blue-200"
+                           placeholder="e.g. Midterm Test"
+                           required>
+                </div>
 
-                    @foreach($classrooms as $classroom)
-                        <option value="{{ $classroom->id }}"
-                            data-subjects='@json($classroom->subjects)'>
-                            {{ $classroom->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+                <!-- Classroom -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Class</label>
+                    <select name="classroom_id"
+                            id="classroom"
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200"
+                            required>
+                        <option value="">Select Class</option>
 
-            <div>
-                <label>Subject</label>
-                <select id="subject" name="subject_id" class="w-full border p-2 rounded">
-                    <option value="">Select Subject</option>
-                </select>
-            </div>
+                        @foreach($classrooms as $class)
+                            <option value="{{ $class->id }}">
+                                {{ $class->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div>
-                <label>Duration (minutes)</label>
-                <input type="number" name="duration" class="w-full border p-2 rounded">
-            </div>
+                <!-- Subject -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Subject</label>
+                    <select name="subject_id"
+                            id="subject"
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200"
+                            required>
+                        <option value="">Select Subject</option>
+                    </select>
+                </div>
 
-            <button class="bg-green-500 text-white px-4 py-2 rounded">
-                Create Exam
-            </button>
+                <!-- Duration -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Duration (minutes)</label>
+                    <input type="number" name="duration"
+                           class="w-full border p-2 rounded focus:ring focus:ring-blue-200"
+                           min="1"
+                           placeholder="e.g. 15"
+                           required>
+                </div>
 
-        </form>
+                <!-- Buttons -->
+                <div class="flex justify-end gap-2">
+
+                    <a href="{{ route('exams.index') }}"
+                       class="px-4 py-2 border rounded">
+                        Cancel
+                    </a>
+
+                    <button type="submit"
+                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        Save Exam
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
-</x-app-layout>
 
-<script>
-    document.getElementById('classroom').addEventListener('change', function () {
+    <!-- 🔥 Dynamic Subject Filter -->
+    <script>
+        const classrooms = @json($classrooms);
+        const classSelect = document.getElementById('classroom');
+        const subjectSelect = document.getElementById('subject');
 
-        let selected = this.options[this.selectedIndex];
-        let subjects = JSON.parse(selected.getAttribute('data-subjects') || '[]');
+        classSelect.addEventListener('change', function () {
+            const selectedId = this.value;
 
-        let subjectDropdown = document.getElementById('subject');
+            subjectSelect.innerHTML = '<option value="">Select Subject</option>';
 
-        subjectDropdown.innerHTML = '<option value="">Select Subject</option>';
+            const selectedClass = classrooms.find(c => c.id == selectedId);
 
-        subjects.forEach(function(subject) {
-            let option = document.createElement('option');
-            option.value = subject.id;
-            option.text = subject.name;
-            subjectDropdown.appendChild(option);
+            if (selectedClass) {
+                selectedClass.subjects.forEach(subject => {
+                    subjectSelect.innerHTML += `
+                        <option value="${subject.id}">
+                            ${subject.name}
+                        </option>
+                    `;
+                });
+            }
         });
+    </script>
 
-    });
-</script>
+</x-app-layout>
