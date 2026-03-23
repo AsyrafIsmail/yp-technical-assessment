@@ -50,6 +50,10 @@
 
             @endforelse
 
+            <a href="{{ route('student.dashboard') }}"class="text-blue-500 hover:underline mb-4 inline-block">
+                ← Back to Dashboard
+            </a>
+
         </div>
 
     </div>
