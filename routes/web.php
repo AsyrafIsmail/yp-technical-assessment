@@ -6,6 +6,9 @@ use App\Http\Controllers\Lecturer\ExamController;
 use App\Http\Controllers\Lecturer\QuestionController;
 use App\Http\Controllers\Lecturer\SubjectController;
 use App\Http\Controllers\Lecturer\StudentController;
+
+use App\Http\Controllers\Student\ExamController as StudentExamController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,10 +58,10 @@ Route::middleware('auth')->group(function () {
         Route::post('lecturer/exams/{exam}/questions', [QuestionController::class, 'store'])->name('questions.store');
     });
 
-    Route::middleware(['auth'])->prefix('student')->group(function () {
-        Route::get('/student/exams', [ExamController::class, 'index'])->name('student.exams');
-        Route::get('/student/exams/{id}', [ExamController::class, 'show'])->name('student.exam.start');
-        Route::post('/student/exams/{id}', [ExamController::class, 'submit'])->name('student.exam.submit');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/exams', [StudentExamController::class, 'index'])->name('student.exams');
+        Route::get('/exams/{id}', [StudentExamController::class, 'show'])->name('student.exam.start');
+        Route::post('/exams/{id}', [StudentExamController::class, 'submit'])->name('student.exam.submit');
     });
 
     Route::prefix('lecturer')->middleware('auth')->group(function () {
