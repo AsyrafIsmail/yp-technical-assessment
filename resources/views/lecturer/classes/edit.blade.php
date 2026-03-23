@@ -1,61 +1,54 @@
 <x-app-layout>
-    <div class="max-w-xl mx-auto py-6">
+    <div class="max-w-xl mx-auto py-8 px-4">
 
-        <h1 class="text-2xl font-bold mb-4">Edit Class</h1>
+        <h1 class="text-2xl font-bold mb-6">Edit Class</h1>
 
-        @if($errors->any())
-            <div class="mb-4 p-3 bg-red-200 text-red-800 rounded">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>- {{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <div class="bg-white p-6 rounded-xl shadow">
 
-        <form action="{{ route('classes.update', $classroom->id) }}" method="POST" class="space-y-4">
-            @csrf
-            @method('PUT')
+            <form action="{{ route('classes.update', $classroom->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Class Name</label>
+                    <input type="text" name="name" value="{{ $classroom->name }}"
+                           class="w-full border p-2 rounded focus:ring focus:ring-blue-200"
+                           required>
+                </div>
 
-            <div>
-                <label class="block mb-1">Class Name</label>
-                <input
-                    type="text"
-                    name="name"
-                    value="{{ old('name', $classroom->name) }}"
-                    class="w-full border p-2 rounded"
-                >
-            </div>
-            <div>
-                <label class="block mb-2">Assign Subjects</label>
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-2">Assign Subjects</label>
 
-                @foreach($subjects as $subject)
-                    <div>
-                        <input type="checkbox"
-                            name="subjects[]"
-                            value="{{ $subject->id }}"
-                            {{ $classroom->subjects->contains($subject->id) ? 'checked' : '' }}>
+                    <div class="grid grid-cols-2 gap-2">
+                        @foreach($subjects as $subject)
+                            <label class="flex items-center gap-2 border p-2 rounded hover:bg-gray-50">
+                                <input type="checkbox"
+                                    name="subjects[]"
+                                    value="{{ $subject->id }}"
+                                    {{ $classroom->subjects->contains($subject->id) ? 'checked' : '' }}>
+                                {{ $subject->name }}
+                            </label>
+                        @endforeach
 
-                        {{ $subject->name }}
                     </div>
-                @endforeach
-            </div>
+                </div>
 
-            <div class="flex justify-between items-center">
+                <div class="flex justify-end gap-2">
 
-                <a href="{{ route('classes.index') }}"
-                   class="text-gray-600 hover:underline">
-                    ← Back
-                </a>
+                    <a href="{{ route('classes.index') }}"
+                       class="px-4 py-2 border rounded">
+                        Cancel
+                    </a>
 
-                <button type="submit"
-                        class="bg-blue-500 text-white px-4 py-2 rounded">
-                    Update
-                </button>
+                    <button type="submit"
+                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        Update
+                    </button>
 
-            </div>
+                </div>
 
-        </form>
+            </form>
+
+        </div>
 
     </div>
 </x-app-layout>

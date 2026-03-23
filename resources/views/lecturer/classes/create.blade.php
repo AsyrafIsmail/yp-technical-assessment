@@ -1,36 +1,52 @@
 <x-app-layout>
-    <div class="max-w-xl mx-auto py-6">
+    <div class="max-w-xl mx-auto py-8 px-4">
 
-        <h1 class="text-2xl font-bold mb-4">Create Class</h1>
+        <h1 class="text-2xl font-bold mb-6">Create Class</h1>
 
-        <form action="{{ route('classes.store') }}" method="POST" class="space-y-4">
-            @csrf
+        <div class="bg-white p-6 rounded-xl shadow">
 
-            <div>
-                <label class="block mb-1">Class Name</label>
-                <input type="text" name="name"
-                       class="w-full border p-2 rounded">
-            </div>
-            <div>
-                <label class="block mb-2">Assign Subjects</label>
+            <form action="{{ route('classes.store') }}" method="POST">
+                @csrf
 
-                @foreach($subjects as $subject)
-                    <div>
-                        <input type="checkbox"
-                            name="subjects[]"
-                            value="{{ $subject->id }}">
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Class Name</label>
+                    <input type="text" name="name"
+                           class="w-full border p-2 rounded focus:ring focus:ring-blue-200"
+                           required>
+                </div>
 
-                        {{ $subject->name }}
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-2">Assign Subjects</label>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        @foreach($subjects as $subject)
+                            <label class="flex items-center gap-2 border p-2 rounded hover:bg-gray-50">
+                                <input type="checkbox"
+                                       name="subjects[]"
+                                       value="{{ $subject->id }}">
+                                {{ $subject->name }}
+                            </label>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
+                </div>
 
-            <button type="submit"
-                    class="bg-green-500 text-white px-4 py-2 rounded">
-                Save
-            </button>
+                <div class="flex justify-end gap-2">
 
-        </form>
+                    <a href="{{ route('classes.index') }}"
+                       class="px-4 py-2 border rounded">
+                        Cancel
+                    </a>
+
+                    <button type="submit"
+                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        Save
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
 </x-app-layout>
