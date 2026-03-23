@@ -6,6 +6,10 @@ use App\Http\Controllers\Lecturer\ExamController;
 use App\Http\Controllers\Lecturer\QuestionController;
 use App\Http\Controllers\Lecturer\SubjectController;
 use App\Http\Controllers\Lecturer\StudentController;
+use App\Models\Classroom;
+use App\Models\Subject;
+use App\Models\Exam;
+use App\Models\Answer;
 
 use App\Http\Controllers\Student\ExamController as StudentExamController;
 
@@ -34,7 +38,11 @@ Route::middleware('auth')->group(function () {
         if (Auth::user()->role !== 'lecturer') {
             abort(403);
         }
-        return view('lecturer.dashboard');
+        return view('lecturer.dashboard', [
+            'classesCount' => Classroom::count(),
+            'subjectsCount' => Subject::count(),
+            'examsCount' => Exam::count(),
+        ]);
     })->name('lecturer.dashboard');
 
     // Student dashboard
@@ -42,7 +50,31 @@ Route::middleware('auth')->group(function () {
         if (Auth::user()->role !== 'student') {
             abort(403);
         }
-        return view('student.dashboard');
+        $exams = Exam::where('classroom_id', Auth::user()->classroom_id)->get();
+
+        $completed = 0;
+
+        foreach ($exams as $exam) {
+
+            $answered = Answer::where('user_id', Auth::user()->id)
+                ->whereHas('question', function ($q) use ($exam) {
+                    $q->where('exam_id', $exam->id);
+                })
+                ->exists();
+
+            $exam->answered = $answered;
+
+            if ($answered) {
+                $completed++;
+            }
+        }
+
+        return view('student.dashboard', [
+            'exams' => $exams->take(5), // show only latest 5
+            'totalExams' => $exams->count(),
+            'completedExams' => $completed,
+            'pendingExams' => $exams->count() - $completed,
+        ]);
     })->name('student.dashboard');
 
     // Lecturer Routes
