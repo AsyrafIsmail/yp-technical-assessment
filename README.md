@@ -1,58 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# YP Online Exam Portal
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A role-based online examination and student management system built with **Laravel 11 + Breeze**, designed for lecturers and students to manage exams, conduct assessments, and view results efficiently.  
 
-## About Laravel
+The system prioritizes **clear workflows, access control, and usability**, with support for timed exams, MCQs, text questions, and class-based access control.  
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Roles & Access
 
-## Learning Laravel
+**Lecturer**
+- Create, edit, and manage exams for assigned classes  
+- Add MCQ and text questions  
+- Assign subjects to classes  
+- View student attempt status and results  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Student**
+- Take timed exams assigned to their class  
+- Resume in-progress exams  
+- View submissions and results  
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Exams & Assessment
+- Timed exams with countdown timer  
+- MCQ auto-scoring  
+- Text answer grading workflow  
+- Access control by assigned class  
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### UI & UX
+- Responsive design (mobile-friendly)  
+- Modern UI for lecturer dashboard, student dashboard, and exam pages  
+- Dynamic form to add questions (MCQ & text)  
+- Interactive “add question” button  
+- Landing page with login/register and feature overview  
 
+---
+
+## Tech Stack
+- **Backend:** Laravel 11 (PHP 8.2+)  
+- **Authentication:** Laravel Breeze (Blade)  
+- **Frontend:** Blade + Tailwind CSS  
+- **Database:** MySQL (configurable)  
+- **Mail:** Laravel Mail (log for local testing)  
+- **Build Tools:** Vite  
+
+---
+
+## Installation & Setup
+
+### Prerequisites
+- PHP 8.2+  
+- Composer  
+- Node.js 18+ & npm  
+- MySQL  
+
+### Steps
 ```bash
-composer require laravel/boost --dev
+# Clone repository
+git clone <repository-url>
+cd yp-portal
 
-php artisan boost:install
-```
+# Install backend dependencies
+composer install
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+# Install frontend dependencies
+npm install
 
-## Contributing
+# Environment setup
+cp .env.example .env
+php artisan key:generate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Configure database in .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=yp_portal
+DB_USERNAME=your_user
+DB_PASSWORD=your_password
 
-## Code of Conduct
+# Optional mail for local testing
+MAIL_MAILER=log
+MAIL_FROM_ADDRESS=noreply@example.com
+MAIL_FROM_NAME="YP Online Exam Portal"
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Run migrations & seed dummy data
+php artisan migrate:fresh --seed
 
-## Security Vulnerabilities
+# Build assets (development)
+npm run dev
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Start server
+php artisan serve
