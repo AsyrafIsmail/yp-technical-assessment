@@ -9,10 +9,17 @@
                 <h2 class="font-bold">{{ $exam->title }}</h2>
                 <p>{{ $exam->duration }} minutes</p>
 
-                <a href="{{ route('student.exam.start', $exam->id) }}"
-                   class="text-blue-500">
-                    Start Exam
-                </a>
+                @if($exam->answered)
+                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded">
+                        Answered
+                    </span>
+                @else
+                    <a href="{{ route('student.exam.start', $exam->id) }}"
+                    class="text-blue-500">
+                        Start Exam
+                    </a>
+                @endif
+
 
             </div>
         @endforeach

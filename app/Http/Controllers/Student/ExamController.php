@@ -13,13 +13,37 @@ class ExamController extends Controller
     public function index() {
         $user = Auth::user();
         $exams = Exam::where('classroom_id', $user->classroom_id)->get();
+        foreach ($exams as $exam) {
 
+            $answered = Answer::where('user_id', $user->id)
+                ->whereHas('question', function ($q) use ($exam) {
+                    $q->where('exam_id', $exam->id);
+                })
+                ->exists();
+
+            $exam->answered = $answered;
+        }
         return view('student.exams.index', compact('exams'));
     }
 
     public function show($id) {
         $exam = Exam::with('questions.options')->findOrFail($id);
+        $user = Auth::user();
 
+        if ($exam->classroom_id !== $user->classroom_id) {
+            abort(403);
+        }
+
+        $alreadyAnswered = Answer::where('user_id', $user->id)
+            ->whereHas('question', function ($q) use ($exam) {
+                $q->where('exam_id', $exam->id);
+            })
+            ->exists();
+
+        if ($alreadyAnswered) {
+            return redirect()->route('student.exams')
+                ->with('error', 'You already answered this exam.');
+        }
         return view('student.exams.show', compact('exam'));
     }
 
