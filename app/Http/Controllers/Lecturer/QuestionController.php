@@ -23,6 +23,9 @@ class QuestionController extends Controller
             ]);
 
             if ($q['type'] === 'mcq' && isset($q['options'])) {
+                $request->validate([
+                    'questions.*.correct_index' => 'required|in:A,B,C,D,a,b,c,d'
+                ]);
                 $correctIndex = strtolower($q['correct_index']);
                 $map = ['a' => 0, 'b' => 1, 'c' => 2, 'd' => 3];
                 $correctIndex = $map[$correctIndex] ?? null;

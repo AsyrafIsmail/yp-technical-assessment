@@ -28,13 +28,13 @@ class ExamController extends Controller
 
             if (is_numeric($answer)) {
                 Answer::create([
-                    'user_id' => Auth::user(),
+                    'user_id' => Auth::user()->id,
                     'question_id' => $questionId,
                     'option_id' => $answer
                 ]);
             } else {
                 Answer::create([
-                    'user_id' => Auth::user(),
+                    'user_id' => Auth::user()->id,
                     'question_id' => $questionId,
                     'answer_text' => $answer
                 ]);
