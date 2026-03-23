@@ -20,6 +20,11 @@
                 Exams
             </a>
 
+            <a href="{{ route('students.index') }}"
+                class="p-6 bg-white shadow rounded text-center hover:bg-gray-100">
+                Students
+            </a>
+
         </div>
 
     </div>

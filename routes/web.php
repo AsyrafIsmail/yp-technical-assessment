@@ -5,6 +5,7 @@ use App\Http\Controllers\Lecturer\ClassroomController;
 use App\Http\Controllers\Lecturer\ExamController;
 use App\Http\Controllers\Lecturer\QuestionController;
 use App\Http\Controllers\Lecturer\SubjectController;
+use App\Http\Controllers\Lecturer\StudentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,8 +59,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/student/exams', [ExamController::class, 'index'])->name('student.exams');
         Route::get('/student/exams/{id}', [ExamController::class, 'show'])->name('student.exam.start');
         Route::post('/student/exams/{id}', [ExamController::class, 'submit'])->name('student.exam.submit');
-});
+    });
 
+    Route::prefix('lecturer')->middleware('auth')->group(function () {
+        Route::get('/students', [StudentController::class, 'index'])->name('students.index');
+        Route::get('/students/{id}', [StudentController::class, 'show'])->name('students.show');
+        Route::post('/students/{id}', [StudentController::class, 'update'])->name('students.update');
+    });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
