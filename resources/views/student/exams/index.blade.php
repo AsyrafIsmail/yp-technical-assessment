@@ -1,28 +1,60 @@
 <x-app-layout>
-    <div class="max-w-5xl mx-auto py-6">
+    <div class="max-w-7xl mx-auto py-8 px-4">
 
-        <h1 class="text-2xl font-bold mb-4">Available Exams</h1>
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">Available Exams</h1>
+        </div>
 
-        @foreach($exams as $exam)
-            <div class="p-4 border mb-3 rounded">
+        <!-- Exams Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <h2 class="font-bold">{{ $exam->title }}</h2>
-                <p>{{ $exam->duration }} minutes</p>
+            @forelse($exams as $exam)
 
-                @if($exam->answered)
-                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded">
-                        Answered
-                    </span>
-                @else
-                    <a href="{{ route('student.exam.start', $exam->id) }}"
-                    class="text-blue-500">
-                        Start Exam
-                    </a>
-                @endif
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col justify-between">
 
+                    <!-- Top -->
+                    <div>
+                        <h2 class="text-xl font-semibold mb-2">
+                            {{ $exam->title }}
+                        </h2>
 
-            </div>
-        @endforeach
+                        <p class="text-gray-500 text-sm mb-1">
+                            📘 {{ $exam->subject->name ?? 'No Subject' }}
+                        </p>
+
+                        <p class="text-gray-500 text-sm">
+                            ⏱ {{ $exam->duration }} minutes
+                        </p>
+                    </div>
+
+                    <!-- Bottom -->
+                    <div class="mt-4">
+
+                        @if($exam->answered)
+                            <span class="block text-center bg-green-100 text-green-700 py-2 rounded font-semibold">
+                                ✅ Answered
+                            </span>
+                        @else
+                            <a href="{{ route('student.exam.start', $exam->id) }}"
+                               class="block text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+                                Start Exam
+                            </a>
+                        @endif
+
+                    </div>
+
+                </div>
+
+            @empty
+
+                <div class="col-span-3 text-center text-gray-500">
+                    No exams available for your class.
+                </div>
+
+            @endforelse
+
+        </div>
 
     </div>
 </x-app-layout>
