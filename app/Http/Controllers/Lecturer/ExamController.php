@@ -58,7 +58,10 @@ class ExamController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $exam = Exam::findOrFail($id);
+        $classrooms = Classroom::with('subjects')->get();
+
+        return view('lecturer.exams.edit', compact('exam', 'classrooms'));
     }
 
     /**
@@ -66,7 +69,19 @@ class ExamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255'
+        ]);
+        $exam = Exam::findOrFail($id);
+
+        $exam->update([
+            'title' => $request->title,
+            'classroom_id' => $request->classroom_id,
+            'subject_id' => $request->subject_id,
+            'duration' => $request->duration
+        ]);
+
+        return redirect()->route('exams.index')->with('success', 'Subject updated!');
     }
 
     /**
@@ -74,6 +89,9 @@ class ExamController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $exam = Exam::findOrFail($id);
+        $exam->delete();
+
+        return redirect()->route('exams.index')->with('success', 'Exam deleted!');
     }
 }

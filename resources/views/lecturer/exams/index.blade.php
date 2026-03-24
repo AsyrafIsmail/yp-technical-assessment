@@ -1,4 +1,9 @@
 <x-app-layout>
+    @if(session('success'))
+        <div class="mt-4 p-3 bg-green-200 text-green-800 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="max-w-6xl mx-auto py-8 px-4">
 
         <!-- Header -->
