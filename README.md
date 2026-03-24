@@ -55,7 +55,7 @@ The application structure and implementation remain consistent with Laravel 11 s
 ## Screenshots
 
 ### Landing Page
-![Landing Page](<img width="1303" height="732" alt="image" src="https://github.com/user-attachments/assets/4bcb2674-f775-456c-b4f9-3defb48c81f7" />)
+<img width="1303" height="732" alt="image" src="https://github.com/user-attachments/assets/4bcb2674-f775-456c-b4f9-3defb48c81f7" />
 
 ### Lecturer Dashboard
 ![Lecturer Dashboard](<img width="1314" height="716" alt="image" src="https://github.com/user-attachments/assets/f2015521-14a9-4221-835a-a6374c7ac4ac" />
