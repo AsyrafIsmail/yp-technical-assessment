@@ -58,20 +58,16 @@ The application structure and implementation remain consistent with Laravel 11 s
 <img width="1303" height="732" alt="image" src="https://github.com/user-attachments/assets/4bcb2674-f775-456c-b4f9-3defb48c81f7" />
 
 ### Lecturer Dashboard
-![Lecturer Dashboard](<img width="1314" height="716" alt="image" src="https://github.com/user-attachments/assets/f2015521-14a9-4221-835a-a6374c7ac4ac" />
-)
+<img width="1314" height="716" alt="image" src="https://github.com/user-attachments/assets/f2015521-14a9-4221-835a-a6374c7ac4ac" />
 
 ### Student Dashboard
-![Student Dashboard](<img width="1315" height="846" alt="image" src="https://github.com/user-attachments/assets/46f8a574-9788-4056-aaa3-d9084a266912" />
-)
+<img width="1315" height="846" alt="image" src="https://github.com/user-attachments/assets/46f8a574-9788-4056-aaa3-d9084a266912" />
 
 ### Exam Page
-![Exam Page](<img width="1262" height="877" alt="image" src="https://github.com/user-attachments/assets/4f5d1fdc-d5e9-4793-9f6e-45d2ac3291a9" />
-)
+<img width="1262" height="877" alt="image" src="https://github.com/user-attachments/assets/4f5d1fdc-d5e9-4793-9f6e-45d2ac3291a9" />
 
 ### Question Management
-![Questions](<img width="1249" height="610" alt="image" src="https://github.com/user-attachments/assets/759d277b-3f46-4722-a61f-cb8766950b04" />
-)
+<img width="1249" height="610" alt="image" src="https://github.com/user-attachments/assets/759d277b-3f46-4722-a61f-cb8766950b04" />
 
 ## Database Design (Simplified)
 
