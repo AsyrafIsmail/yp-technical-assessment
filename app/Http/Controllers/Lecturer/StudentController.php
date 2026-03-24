@@ -10,13 +10,16 @@ use App\Models\Classroom;
 class StudentController extends Controller
 {
     public function index() {
-        $students = User::where('role', 'student')->get();
+        $students = User::where('role', 'student')->when(request('search'), function ($query) {
+            $query->where('name', 'like', '%' . request('search') . '%');
+        })->get();
+        $students = User::where('role', 'student')->paginate(10);
 
         return view('lecturer.students.index', compact('students'));
     }
 
     public function show($id) {
-        $student = User::findOrFail($id);
+        $student = User::with('classroom')->findOrFail($id);
         $classrooms = Classroom::all();
 
         return view('lecturer.students.show', compact('student', 'classrooms'));
