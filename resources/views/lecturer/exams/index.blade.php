@@ -6,7 +6,6 @@
     @endif
     <div class="max-w-6xl mx-auto py-8 px-4">
 
-        <!-- Header -->
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Exams</h1>
 
@@ -16,7 +15,6 @@
             </a>
         </div>
 
-        <!-- Table -->
         <div class="bg-white rounded-xl shadow overflow-hidden">
 
             <table class="w-full text-left">
@@ -58,7 +56,7 @@
 
                             <td class="p-4 text-right space-x-2">
 
-                                <a href="{{ route('questions.create', $exam->id) }}"
+                                <a href="{{ route('questions.index', $exam->id) }}"
                                    class="text-purple-500 hover:underline">
                                     Questions
                                 </a>

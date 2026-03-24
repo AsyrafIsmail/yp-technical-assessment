@@ -8,7 +8,6 @@
 </head>
 <body class="bg-gray-100">
 
-    <!-- Navbar -->
     <nav class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
 
@@ -38,7 +37,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="max-w-7xl mx-auto px-4 py-20 text-center">
 
         <h2 class="text-4xl font-bold mb-4">
@@ -71,7 +69,6 @@
 
     </section>
 
-    <!-- Features Section -->
     <section class="bg-white py-16">
         <div class="max-w-7xl mx-auto px-4">
 
@@ -107,7 +104,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="text-center py-6 text-gray-500 text-sm">
         © {{ date('Y') }} YP Exam Portal. All rights reserved.
     </footer>

@@ -6,7 +6,6 @@
     @endif
     <div class="max-w-6xl mx-auto py-8 px-4">
 
-        <!-- Header -->
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Subjects</h1>
 
@@ -16,7 +15,6 @@
             </a>
         </div>
 
-        <!-- Table -->
         <div class="bg-white rounded-xl shadow overflow-hidden">
 
             <table class="w-full text-left">

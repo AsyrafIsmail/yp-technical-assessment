@@ -8,7 +8,6 @@
             <form action="{{ route('exams.store') }}" method="POST">
                 @csrf
 
-                <!-- Title -->
                 <div class="mb-4">
                     <label class="block text-sm text-gray-600 mb-1">Exam Title</label>
                     <input type="text" name="title"
@@ -17,7 +16,6 @@
                            required>
                 </div>
 
-                <!-- Classroom -->
                 <div class="mb-4">
                     <label class="block text-sm text-gray-600 mb-1">Class</label>
                     <select name="classroom_id"
@@ -34,7 +32,6 @@
                     </select>
                 </div>
 
-                <!-- Subject -->
                 <div class="mb-4">
                     <label class="block text-sm text-gray-600 mb-1">Subject</label>
                     <select name="subject_id"
@@ -45,7 +42,6 @@
                     </select>
                 </div>
 
-                <!-- Duration -->
                 <div class="mb-4">
                     <label class="block text-sm text-gray-600 mb-1">Duration (minutes)</label>
                     <input type="number" name="duration"
@@ -55,7 +51,6 @@
                            required>
                 </div>
 
-                <!-- Buttons -->
                 <div class="flex justify-end gap-2">
 
                     <a href="{{ route('exams.index') }}"
@@ -76,7 +71,6 @@
 
     </div>
 
-    <!-- 🔥 Dynamic Subject Filter -->
     <script>
         const classrooms = @json($classrooms);
         const classSelect = document.getElementById('classroom');

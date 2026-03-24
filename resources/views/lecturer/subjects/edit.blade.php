@@ -9,7 +9,6 @@
                 @csrf
                 @method('PUT')
 
-                <!-- Subject Name -->
                 <div class="mb-4">
                     <label class="block text-sm text-gray-600 mb-1">Subject Name</label>
                     <input type="text" name="name"
@@ -18,7 +17,6 @@
                            required>
                 </div>
 
-                <!-- Buttons -->
                 <div class="flex justify-end gap-2">
 
                     <a href="{{ route('subjects.index') }}"
